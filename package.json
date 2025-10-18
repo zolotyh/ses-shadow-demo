@@ -40,8 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://zolotyh.github.io/ses-shadow-demo",
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
-  }
+  "homepage": "https://zolotyh.github.io/ses-shadow-demo"
 }
