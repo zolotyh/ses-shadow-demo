@@ -1,70 +1,145 @@
-# Getting Started with Create React App
+# SES + Shadow DOM: демонстрация системы плагинов
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Демонстрация создания безопасной изолированной системы плагинов для веб-приложений с использованием технологий **SES (Secure ECMAScript)** и **Shadow DOM**.
 
-## Available Scripts
+## Обзор
 
-In the project directory, you can run:
+Этот проект демонстрирует, как создать надежную архитектуру плагинов, обеспечивающую одновременно **изоляцию выполнения** (через SES) и **изоляцию стилей/DOM** (через Shadow DOM) для стороннего кода, работающего в вашем приложении.
 
-### `npm start`
+### Ключевые технологии
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **SES (Secure ECMAScript)**: библиотека JavaScript для безопасного выполнения стороннего кода в изолированных компартментах с принципами минимальных полномочий
+- **Shadow DOM**: веб-стандарт для инкапсуляции DOM-деревьев и CSS-стилей для предотвращения конфликтов
+- **React**: UI-фреймворк для построения основного приложения
+- **Create React App**: инструменты разработки и конфигурация сборки
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Зачем нужны SES + Shadow DOM?
 
-### `npm test`
+Современные системы плагинов требуют множественных уровней изоляции:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Безопасность выполнения (SES)
 
-### `npm run build`
+- Предотвращает доступ вредоносных плагинов к глобальной области видимости
+- Обеспечивает модель безопасности на основе объектных возможностей
+- Замораживает встроенные объекты для предотвращения изменений
+- Изолирует сторонний код без использования полноценных iframe
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Изоляция стилей и DOM (Shadow DOM)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Предотвращает конфликты CSS между основным приложением и плагинами
+- Изолирует DOM-деревья плагинов от манипуляций с DOM хоста
+- Обеспечивает настоящую инкапсуляцию компонентов
+- Работает в обе стороны - стили хоста не проникают внутрь, стили плагина не утекают наружу
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Комбинированные преимущества
 
-### `npm run eject`
+Этот подход двойной изоляции обеспечивает комплексную защиту при запуске ненадежных плагинов, сохраняя легковесную и производительную архитектуру - более эффективную, чем iframe, при обеспечении аналогичных гарантий безопасности.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Начало работы
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Установка
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Разработка
 
-## Learn More
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Запускает приложение в режиме разработки по адресу [http://localhost:3000](http://localhost:3000).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Production-сборка
 
-### Code Splitting
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Создает оптимизированную production-сборку в папке `build`.
 
-### Analyzing the Bundle Size
+## Демонстрируемые архитектурные концепции
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 1. SES-компартменты
 
-### Making a Progressive Web App
+Демо показывает, как создавать изолированные среды выполнения JavaScript, где плагины работают с ограниченным доступом к глобальным объектам и внутренним компонентам основного приложения.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 2. Границы Shadow DOM
 
-### Advanced Configuration
+Плагины отображаются внутри Shadow DOM roots, предотвращая коллизии стилей и вмешательство в DOM-дерево между основным приложением и кодом плагина.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 3. Дизайн API плагинов
 
-### Deployment
+Демонстрирует минимальную поверхность API плагинов, которая держит сложные механизмы вне плагина, сохраняя простоту для разработчиков плагинов.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 4. Безопасные паттерны коммуникации
 
-### `npm run build` fails to minify
+Показывает, как основное приложение и плагины могут безопасно взаимодействовать через границы изоляции, используя передачу сообщений и API на основе возможностей.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Сценарии использования
+
+Эта архитектура идеальна для:
+
+- **Систем расширений**, где пользователи могут добавлять пользовательскую функциональность
+- **Платформ виджетов**, размещающих сторонние компоненты
+- **Marketplace-приложений** с плагинами от сообщества
+- **Мультитенантных сред**, требующих изоляции кода
+- **Браузерных расширений**, требующих внедрения изолированных компонентов
+
+## Соображения безопасности
+
+- Плагины работают в SES-компартментах с замороженными встроенными объектами для предотвращения загрязнения прототипов
+- Shadow DOM предоставляет режим `closed` для предотвращения обхода внутренних компонентов плагина JavaScript страницы хоста
+- Дисциплина объектных возможностей гарантирует, что плагины получают доступ только к явно предоставленным разрешениям
+- Нет прямого доступа к DOM - плагины работают через контролируемые поверхности API
+
+## Узнать больше
+
+### Ресурсы по SES
+
+- [Предложение SES (TC39)](https://github.com/tc39/proposal-ses)
+- [SES: Securing JavaScript in the Real World](http://papers.agoric.com/ses-securing-javascript/)
+
+### Ресурсы по Shadow DOM
+
+- [Использование Shadow DOM (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM)
+- [Спецификация Shadow DOM v1](https://web.dev/articles/shadowdom-v1)
+
+### Create React App
+
+- [Документация CRA](https://facebook.github.io/create-react-app/docs/getting-started)
+
+## Структура проекта
+
+```
+ses-shadow-demo/
+├── src/
+│   ├── App.js              # Основное приложение с хостом плагинов
+│   ├── plugins/            # Примеры реализации плагинов
+│   ├── ses-setup.js        # Инициализация SES и создание компартментов
+│   └── shadow-wrapper.js   # Утилиты интеграции Shadow DOM
+├── public/
+└── package.json
+```
+
+## Вклад в проект
+
+Это демонстрационный проект для образовательных целей. Не стесняйтесь делать форк и экспериментировать с различными стратегиями изоляции и паттернами плагинов.
+
+## Лицензия
+
+MIT
+
+***
+
+**Примечание**: Это демо построено на Create React App. Проект демонстрирует продвинутые паттерны frontend-архитектуры для безопасных систем плагинов, подходящих для production-приложений, требующих выполнения стороннего кода.
+<span style="display:none">[^1][^2][^3]</span>
+
+<div align="center">⁂</div>
+
+[^1]: <https://handleman.github.io/translation/2019/01/22/shadow-dom.html>
+
+[^2]: <https://www.reddit.com/r/webdev/comments/e6b3d3/eli5_what_is_a_shadow_dom_and_should_we_be_using/>
+
+[^3]: <https://www.youtube.com/watch?v=ZjYKzrBEEuI>
