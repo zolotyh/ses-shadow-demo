@@ -193,13 +193,13 @@ export function DynamicWidget(userProps) {
     },
     React.createElement(
       'h4',
-      { style: { margin: '0 0 10px 0', color: '#0070f3' } },
+      { style: { margin: '0 0 10px 0', color: '#fff' } },
       title
     ),
     React.createElement(
       'p',
-      { style: { margin: '0 0 10px 0', color: '#666' } },
-      '[translate:Данные props]: ' + JSON.stringify(data)
+      { style: { margin: '0 0 10px 0', color: '#fff' } },
+      'Данные из пропсов: ' + JSON.stringify(data)
     ),
     React.createElement(
       'button',
